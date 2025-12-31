@@ -15,7 +15,7 @@ export function buildClaudePrompt(args: {
     `ROLE: You are the BUILDER. Implement the ticket exactly.`,
     `- Obey scope, files-touched, verification steps, and stop condition.`,
     `- Do not refactor outside scope.`,
-    `- Do not touch any client repo (/social).`,
+    `- Work inside the repo where the ticket lives (the current working repo).`,
     ``,
     `## Required references`,
     ...refs.map((r) => `- ${r}`),
