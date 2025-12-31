@@ -17,7 +17,7 @@ export function buildClaudePrompt(args: {
     `- Do not refactor outside scope.`,
     `- Work inside the repo where the ticket lives (the current working repo).`,
     `- Only modify files listed under Files touched.`,
-    `If a path is ambiguous, STOP and ask for clarification.`,
+    `- If a path is ambiguous, STOP and ask for clarification.`,
     ``,
     `## Required references`,
     ...refs.map((r) => `- ${r}`),
