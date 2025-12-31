@@ -36,15 +36,13 @@ export function createRunPack(args: {
 
   const refs = getDefaultRefs();
 
+  const claudePrompt = buildClaudePrompt({ ticketId, ticketMd, refs });
+  const codexPrompt = buildCodexPrompt({ ticketId, ticketMd, refs });
+
+  // write individual files
   const ticketMdPath = writeFile(path.join(runDir, "ticket.md"), ticketMd);
-  const claudePromptPath = writeFile(
-    path.join(runDir, "claude.prompt.txt"),
-    buildClaudePrompt({ ticketId, ticketMd, refs })
-  );
-  const codexPromptPath = writeFile(
-    path.join(runDir, "codex.prompt.txt"),
-    buildCodexPrompt({ ticketId, ticketMd, refs })
-  );
+  const claudePromptPath = writeFile(path.join(runDir, "claude.prompt.txt"), claudePrompt);
+  const codexPromptPath = writeFile(path.join(runDir, "codex.prompt.txt"), codexPrompt);
 
   const runMd = [
     `# Run Pack — ${ticketId}`,
@@ -52,13 +50,20 @@ export function createRunPack(args: {
     `Run directory: ${runDir}`,
     `Ticket source: ${ticketAbsPath}`,
     ``,
-    `## Artifacts`,
-    `- ticket.md`,
-    `- claude.prompt.txt`,
-    `- codex.prompt.txt`,
-    `- run.md`,
+    `---`,
+    `## ticket.md`,
+    ticketMd,
     ``,
-    `## Placeholders (not generated in ORCH-T2)`,
+    `---`,
+    `## claude.prompt.txt`,
+    claudePrompt,
+    ``,
+    `---`,
+    `## codex.prompt.txt`,
+    codexPrompt,
+    ``,
+    `---`,
+    `## placeholders (not generated in ORCH-T2)`,
     `- claude.output.md`,
     `- codex.verdict.txt`,
     ``,
