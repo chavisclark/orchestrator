@@ -39,7 +39,6 @@ export function createRunPack(args: {
   const claudePrompt = buildClaudePrompt({ ticketId, ticketMd, refs });
   const codexPrompt = buildCodexPrompt({ ticketId, ticketMd, refs });
 
-  // write individual files
   const ticketMdPath = writeFile(path.join(runDir, "ticket.md"), ticketMd);
   const claudePromptPath = writeFile(path.join(runDir, "claude.prompt.txt"), claudePrompt);
   const codexPromptPath = writeFile(path.join(runDir, "codex.prompt.txt"), codexPrompt);
@@ -68,6 +67,7 @@ export function createRunPack(args: {
     `- codex.verdict.txt`,
     ``,
   ].join("\n");
+
 
   const runMdPath = writeFile(path.join(runDir, "run.md"), runMd);
 
