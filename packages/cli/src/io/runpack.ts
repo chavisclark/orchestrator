@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { buildClaudePrompt, buildCodexPrompt, getDefaultRefs, safeTicketIdFromPath } from "./prompts";
+import { buildClaudePrompt, buildCodexPrompt, getDefaultRefs, safeTicketIdFromPath } from "./prompts.js";
 
 export type RunPackResult = {
   ticketId: string;

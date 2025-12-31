@@ -2,7 +2,7 @@
 import { Command } from "commander";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createRunPack } from "./io/runpack";
+import { createRunPack } from "./io/runpack.js";
 
 function absPath(p: string) {
   return path.isAbsolute(p) ? p : path.resolve(process.cwd(), p);
