@@ -54,8 +54,12 @@ export function buildCodexPrompt(args: {
     `- VERDICT: BLOCKED (list exact issues + violated rule/doc)`,
     `- VERDICT: ESCALATE (include payload)`,
     ``,
-    `## Required references`,
+    `## Reference documents (for context)`,
+    `These files exist in the client repo. Items marked "(optional)" or "(may be placeholder)" are not required for approval.`,
     ...refs.map((r) => `- ${r}`),
+    ``,
+    `**IMPORTANT:** Do NOT block a ticket solely because a reference file is empty or marked optional.`,
+    `Only block if the ticket's acceptance criteria, verification steps, or scope are violated.`,
     ``,
     `---`,
     `## Ticket`,
@@ -63,22 +67,25 @@ export function buildCodexPrompt(args: {
     ``,
     `---`,
     `## Review rubric`,
-    `- Files touched match ticket`,
-    `- No extra modifications`,
-    `- Acceptance criteria verified`,
+    `- Files touched match ticket scope`,
+    `- No extra modifications outside scope`,
+    `- Acceptance criteria verified (based on builder output and evidence)`,
     `- Stop condition respected`,
+    `- Analysis-only tickets (Files Touched: None) require NO file changes`,
     ``,
   ].join("\n");
 }
 
 // Centralize reference paths (relative strings; caller can render as needed)
+// These paths are relative to the CLIENT repo root (e.g., /Users/mac/Sites/social)
+// where orchestrator is installed as a git submodule at /orchestration.
 export function getDefaultRefs() {
   return [
-    `AI_RUNBOOK.md`,
+    `AI_RUNBOOK.md (optional; may be empty or absent)`,
     `orchestration/contracts/ticket.contract.md`,
     `orchestration/policies/human_interrupt_rules.md`,
-    `orchestration/clients/social/plan.lock.json`,
-    `orchestration/clients/social/schema.truth_table.md`,
+    `orchestration/clients/social/plan.lock.json (may be placeholder)`,
+    `orchestration/clients/social/schema.truth_table.md (may be placeholder)`,
   ];
 }
 
